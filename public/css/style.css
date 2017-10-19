@@ -1,5 +1,56 @@
 body {
-  background: #345;
-  font: 400 13px/1 monospace;
+  background: #384964;
+  font: 400 13px/1 'Open Sans', sans-serif;
   margin: 0;
+}
+
+
+/* ---------- DOCK ---------- */
+
+.dock {
+  background: linear-gradient(to top, rgba(255, 255 , 255, 0.1) 0, rgba(255, 255, 255, 0) 40px);
+  bottom: 0; left: 0; right: 0;
+  margin: 0;
+  padding: 20px 0;
+  position: fixed;
+  text-align: center;
+}
+
+.dock-app {
+  cursor: default;
+  display: inline-block;
+  list-style: none;
+  padding: 10px 20px;
+  text-align: center;
+  transition: transform .1s ease;
+  width: 100px;
+}
+
+.dock-app:hover {
+  transform: scale(1.2);
+}
+
+.dock-app-title {
+  color: #fff;
+  font-weight: 600;
+  padding-top: 5px;
+}
+
+/* ---------- ICONS ---------- */
+
+.icon {
+  fill: #fff;
+  vertical-align: baseline;
+}
+
+.icon-large {
+  height: 30px;
+  width: 30px;
+}
+
+
+/* ---------- UTIL ---------- */
+
+.block {
+  display: block;
 }
