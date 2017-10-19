@@ -1,0 +1,29 @@
+{
+  "name": "pwd",
+  "version": "0.0.1",
+  "description": "Personal Web Desktop",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "rollup -c build/rollup.config.js --watch",
+    "serve": "browser-sync start --server --serveStatic \"public\" --files \"public/**\" --no-open",
+    "start": "npm-run-all --parallel dev serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1dv525/js224pt-examination-3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1dv525/js224pt-examination-3/issues"
+  },
+  "homepage": "https://github.com/1dv525/js224pt-examination-3#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "npm-run-all": "^4.1.1",
+    "rollup": "^0.50.0",
+    "rollup-plugin-buble": "^0.16.0",
+    "rollup-plugin-filesize": "^1.4.2",
+    "rollup-watch": "^4.3.1"
+  }
+}
