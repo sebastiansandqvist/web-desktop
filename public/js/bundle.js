@@ -1290,23 +1290,124 @@ var Chat = {
   }
 };
 
-var Memory = {
-  view: function view () {
-    return mithril('div', 'memory test app')
+function removeFromArray (arr, item) {
+  var index = arr.indexOf(item);
+  if (index > -1) { arr.splice(index, 1); }
+}
+
+function shuffle (arr) {
+  var currentIndex = arr.length;
+  var temporaryValue;
+  var randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    temporaryValue = arr[currentIndex];
+    arr[currentIndex] = arr[randomIndex];
+    arr[randomIndex] = temporaryValue;
   }
+
+  return arr
+}
+
+var initialBoard = [
+  'a', 'A', 'b', 'B',
+  'c', 'C', 'd', 'D',
+  'e', 'E', 'f', 'F',
+  'g', 'G', 'h', 'H',
+  'i', 'I', 'j', 'J',
+  'k', 'K', 'l', 'L',
+  'm', 'M', 'n', 'N',
+  'o', 'O', 'p', 'P',
+  'q', 'Q', 'r', 'R',
+  's', 'S', 't', 'T',
+  'u', 'U', 'v', 'V',
+  'w', 'W', 'x', 'X',
+  'y', 'Y', 'z', 'Z'
+];
+
+function modelFactory (rows) {
+  return {
+    board: shuffle(initialBoard.slice(0, rows * 4)),
+    solved: [],
+    revealed: [], // tuple
+  }
+}
+
+var pieceStyle = {
+  boxSizing: 'border-box',
+  cursor: 'pointer',
+  display: 'inline-block',
+  margin: '2px',
+  padding: '20px 10px',
+  textAlign: 'center',
+  width: 'calc(25% - 4px)'
 };
 
-// TODO: should package icon with each app instead of with desktop
+var match = function (a, b) { return a.toLowerCase() === b.toLowerCase(); };
+
+function Memory () {
+  var round = 1;
+  var model = modelFactory(round);
+  var won = false;
+  var boardStyle = function () { return won ? { background: '#6f8' } : { background: '#eee' }; };
+
+  var makeMove = function (piece) {
+    var solved = model.solved;
+    var revealed = model.revealed;
+    var board = model.board;
+    if (solved.includes(piece)) { return }
+    if (revealed.length === 0) { revealed.push(piece); }
+    else if (revealed.length === 1 && match(piece, revealed[0])) {
+      solved.push(piece, revealed[0]);
+      revealed.length = 0;
+    }
+    else if (revealed.length === 1) {
+      revealed.push(piece);
+      setTimeout(function () {
+        revealed.length = 0;
+        redraw();
+      }, 500);
+    }
+    
+    // user wins when board length is solved length
+    if (board.length === solved.length) {
+      round++;
+      model = modelFactory(round);
+      won = true;
+      redraw();
+      setTimeout(function () {
+        won = false;
+        redraw();
+      }, 200);
+    }
+    
+    redraw();
+  };
+
+  return {
+    view: function view () {
+      var board = model.board;
+      var solved = model.solved;
+      var revealed = model.revealed;
+      return (
+        mithril('div', { style: boardStyle() },
+          board.map(function (piece) {
+            var symbol = (solved.includes(piece) || revealed.includes(piece)) ? piece.toLowerCase() : '*';
+            return mithril('button', { onclick: function onclick() { makeMove(piece); }, style: pieceStyle }, symbol)
+          })
+        )
+      )
+    }
+  }
+}
+
 var apps = [
   { name: 'Browser', icon: 'globe', component: Browser },
   { name: 'Chat', icon: 'chat', component: Chat },
   { name: 'Memory', icon: 'eye', component: Memory }
 ];
-
-function removeFromArray (arr, item) {
-  var index = arr.indexOf(item);
-  if (index > -1) { arr.splice(index, 1); }
-}
 
 var isTopWindow = function (app, zIndexOrder) { return zIndexOrder[zIndexOrder.length -1] === app; };
 
