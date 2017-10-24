@@ -30,6 +30,9 @@ body {
   padding: 20px 0;
   position: fixed;
   text-align: center;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 
 .dock-app {
