@@ -1,14 +1,7 @@
 import m from 'mithril'
-import Dock from './components/dock'
-
-const app = {
-  view() {
-    return [
-      m('', 'test'),
-      m(Dock)
-    ]
-  }
-}
+import App from './app'
 
 const mountNode = document.getElementById('app')
-m.render(mountNode, m(app))
+export const redraw = () => m.render(mountNode, m(App))
+
+redraw()

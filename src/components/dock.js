@@ -1,25 +1,50 @@
 import m from 'mithril'
 import Icon from './icon'
-import { spawnWindow } from '../window-manager'
+import { spawnWindow, windowState } from '../window-manager'
 
-// TODO: store this in another file
+// TODO: own file in ../apps/browser!
+const Browser = {
+  view () {
+    return m('div', 'browser!!!!!')
+  }
+}
+
+const Chat = {
+  view () {
+    return m('div', 'chat!!!!!!')
+  }
+}
+
+// TODO: own file (app manifest in root of apps folder)
 const apps = [
-  { appName: 'Browser', appIcon: 'TODO' },
-  { appName: 'Chat', appIcon: 'chat' },
-  { appName: 'Memory', appIcon: 'TODO' },
-  { appName: 'Tetris', appIcon: 'TODO' }
+  { name: 'Browser', icon: 'globe', component: Browser },
+  { name: 'Chat', icon: 'chat', component: Chat },
+  { name: 'Memory', icon: 'eye' },
+  { name: 'Tetris', icon: 'TODO' }
 ]
 
-function Dock() {
+let instanceCounter = 0
+function makeAppInstance ({ name, icon, component }) {
+  return {
+    name,
+    icon,
+    component,
+    x: windowState.nextX,
+    y: windowState.nextY,
+    windowNumber: instanceCounter++
+  }
+}
+
+function Dock () {
   // const model = dockModel()
   return {
     view() {
       return [
         m('ul.dock',
-          apps.map(({ appName, appIcon }) => (
-            m('li.dock-app', { onclick() { alert('would spawn window') } },
-              m(Icon, { className: 'icon-large', name: appIcon }),
-              m('.dock-app-title', appName)
+          apps.map((app) => (
+            m('li.dock-app', { onclick: () => spawnWindow(makeAppInstance(app)) },
+              m(Icon, { className: 'icon-large', name: app.icon }),
+              m('.dock-app-title', app.name)
             )
           ))
          )
