@@ -19,7 +19,7 @@ function Browser () {
   const url = stream('')
   const currentPage = stream('https://duckduckgo.com')
 
-  const back = function() {
+  const back = function () {
     currentPage(historyStack.pop())
     redraw()
   }

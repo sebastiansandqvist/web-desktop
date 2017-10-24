@@ -39,7 +39,7 @@ const address = 'ws://vhost3.lnu.se:20080/socket/'
 // NOTE: this opens the websocket immediately on application launch
 // (could instead do this in each instance of the chat application)
 const connection = {
-  socket: new WebSocket(address),
+  socket: new window.WebSocket(address),
   messages: [],
   isLoggedIn: false,
   username: stream('')
@@ -76,7 +76,6 @@ function message (text) {
   }
 }
 
-
 let isInitialized = false
 
 function ChatApplication () {
@@ -85,7 +84,7 @@ function ChatApplication () {
 
   if (!isInitialized) {
     isInitialized = true
-  
+
     // NOTE: will currently continue listening after chat is closed
     connection.socket.addEventListener('message', function (e) {
       const response = JSON.parse(e.data)
@@ -114,7 +113,7 @@ function ChatApplication () {
       return [
         m('', {
           style: styles.messages,
-          oncreate({ dom }) {
+          oncreate ({ dom }) {
             messageElement = dom
           }
         },
@@ -141,9 +140,9 @@ function ChatApplication () {
 function Chat () {
   return {
     view () {
-      return connection.isLoggedIn ?
-        m(ChatApplication) :
-        m(ChatLogin)
+      return connection.isLoggedIn
+        ? m(ChatApplication)
+        : m(ChatLogin)
     }
   }
 }

@@ -1,5 +1,4 @@
 import m from 'mithril'
-import { removeFromArray } from '../../util'
 import { shuffle } from './util'
 import { redraw } from '../../index'
 
@@ -23,7 +22,7 @@ function modelFactory (rows) {
   return {
     board: shuffle(initialBoard.slice(0, rows * 4)),
     solved: [],
-    revealed: [], // tuple
+    revealed: [] // tuple
   }
 }
 
@@ -52,15 +51,14 @@ function Memory () {
     else if (revealed.length === 1 && match(piece, revealed[0])) {
       solved.push(piece, revealed[0])
       revealed.length = 0
-    }
-    else if (revealed.length === 1) {
+    } else if (revealed.length === 1) {
       revealed.push(piece)
       setTimeout(() => {
         revealed.length = 0
         redraw()
       }, 500)
     }
-    
+
     // user wins when board length is solved length
     if (board.length === solved.length) {
       round++
@@ -72,7 +70,7 @@ function Memory () {
         redraw()
       }, 200)
     }
-    
+
     redraw()
   }
 
@@ -83,7 +81,7 @@ function Memory () {
         m('div', { style: boardStyle() },
           board.map((piece) => {
             const symbol = (solved.includes(piece) || revealed.includes(piece)) ? piece.toLowerCase() : '*'
-            return m('button', { onclick() { makeMove(piece) }, style: pieceStyle }, symbol)
+            return m('button', { onclick () { makeMove(piece) }, style: pieceStyle }, symbol)
           })
         )
       )

@@ -1264,12 +1264,12 @@ var icons = {
     mithril('path', { 'fill-opacity': '0.5', d: 'm5.8 11.2v-6.2h-3.8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h1v3l3-3h5c1.1 0 2-.9 2-2v-1.82c-.064.014-.132.021-.2.021h-7v-.001' }),
     mithril('path', { d: 'm18 0h-9c-1.1 0-2 .9-2 2v8h7l3 3v-3h1c1.1 0 2-.899 2-2v-6c0-1.1-.9-2-2-2' })
   ]),
-  eye: mithril('path', { d: 'm10 4.4c-6.6 0-10 4.8-10 5.6 0 .8 3.4 5.6 10 5.6 6.6 0 10-4.8 10-5.6 0-.8-3.4-5.6-10-5.6m0 9.9c-2.5 0-4.4-1.9-4.4-4.3 0-2.4 2-4.3 4.4-4.3 2.5 0 4.4 1.9 4.4 4.3 0 2.4-2 4.3-4.4 4.3m0-4.3c-.4-.4.7-2.2 0-2.2-1.2 0-2.2 1-2.2 2.2 0 1.2 1 2.2 2.2 2.2 1.2 0 2.2-1 2.2-2.2 0-.5-1.9.4-2.2 0'}),
-  globe: mithril('path', { d: 'M10 0.4c-5.295 0-9.601 4.307-9.601 9.6c0 5.293 4.306 9.6 9.601 9.6c5.293 0 9.6-4.307 9.6-9.6C19.6 4.707 15.293 0.4 10 0.4z M18.188 10c0 1.873-0.636 3.6-1.696 4.98c-0.3-0.234-0.619-0.867-0.319-1.523c0.303-0.66 0.382-2.188 0.312-2.783c-0.066-0.594-0.375-2.025-1.214-2.039c-0.838-0.012-1.413-0.289-1.911-1.283c-1.033-2.068 1.939-2.465 0.906-3.609c-0.289-0.322-1.783 1.322-2.002-0.869C12.25 2.717 12.399 2.482 12.6 2.238C15.844 3.328 18.188 6.395 18.188 10z M8.875 1.893C8.679 2.275 8.162 2.43 7.848 2.717C7.164 3.336 6.87 3.25 6.502 3.844C6.131 4.438 4.935 5.293 4.935 5.723s0.604 0.936 0.906 0.838c0.302-0.1 1.099-0.094 1.567 0.07c0.469 0.166 3.914 0.332 2.816 3.244c-0.348 0.926-1.873 0.77-2.279 2.303c-0.061 0.225-0.272 1.186-0.285 1.5c-0.025 0.486 0.344 2.318-0.125 2.318c-0.471 0-1.738-1.639-1.738-1.936c0-0.297-0.328-1.338-0.328-2.23c0-0.891-1.518-0.877-1.518-2.062c0-1.068 0.823-1.6 0.638-2.113c-0.181-0.51-1.627-0.527-2.23-0.59C3.412 4.334 5.889 2.307 8.875 1.893z M7.424 17.77c0.492-0.26 0.542-0.596 0.988-0.613c0.51-0.023 0.925-0.199 1.5-0.326c0.51-0.111 1.423-0.629 2.226-0.695c0.678-0.055 2.015 0.035 2.375 0.689c-1.295 0.861-2.848 1.363-4.514 1.363C9.1 18.188 8.234 18.039 7.424 17.77z'})
+  eye: mithril('path', { d: 'm10 4.4c-6.6 0-10 4.8-10 5.6 0 .8 3.4 5.6 10 5.6 6.6 0 10-4.8 10-5.6 0-.8-3.4-5.6-10-5.6m0 9.9c-2.5 0-4.4-1.9-4.4-4.3 0-2.4 2-4.3 4.4-4.3 2.5 0 4.4 1.9 4.4 4.3 0 2.4-2 4.3-4.4 4.3m0-4.3c-.4-.4.7-2.2 0-2.2-1.2 0-2.2 1-2.2 2.2 0 1.2 1 2.2 2.2 2.2 1.2 0 2.2-1 2.2-2.2 0-.5-1.9.4-2.2 0' }),
+  globe: mithril('path', { d: 'M10 0.4c-5.295 0-9.601 4.307-9.601 9.6c0 5.293 4.306 9.6 9.601 9.6c5.293 0 9.6-4.307 9.6-9.6C19.6 4.707 15.293 0.4 10 0.4z M18.188 10c0 1.873-0.636 3.6-1.696 4.98c-0.3-0.234-0.619-0.867-0.319-1.523c0.303-0.66 0.382-2.188 0.312-2.783c-0.066-0.594-0.375-2.025-1.214-2.039c-0.838-0.012-1.413-0.289-1.911-1.283c-1.033-2.068 1.939-2.465 0.906-3.609c-0.289-0.322-1.783 1.322-2.002-0.869C12.25 2.717 12.399 2.482 12.6 2.238C15.844 3.328 18.188 6.395 18.188 10z M8.875 1.893C8.679 2.275 8.162 2.43 7.848 2.717C7.164 3.336 6.87 3.25 6.502 3.844C6.131 4.438 4.935 5.293 4.935 5.723s0.604 0.936 0.906 0.838c0.302-0.1 1.099-0.094 1.567 0.07c0.469 0.166 3.914 0.332 2.816 3.244c-0.348 0.926-1.873 0.77-2.279 2.303c-0.061 0.225-0.272 1.186-0.285 1.5c-0.025 0.486 0.344 2.318-0.125 2.318c-0.471 0-1.738-1.639-1.738-1.936c0-0.297-0.328-1.338-0.328-2.23c0-0.891-1.518-0.877-1.518-2.062c0-1.068 0.823-1.6 0.638-2.113c-0.181-0.51-1.627-0.527-2.23-0.59C3.412 4.334 5.889 2.307 8.875 1.893z M7.424 17.77c0.492-0.26 0.542-0.596 0.988-0.613c0.51-0.023 0.925-0.199 1.5-0.326c0.51-0.111 1.423-0.629 2.226-0.695c0.678-0.055 2.015 0.035 2.375 0.689c-1.295 0.861-2.848 1.363-4.514 1.363C9.1 18.188 8.234 18.039 7.424 17.77z' })
 };
 
 var Icon = {
-  view: function view(ref) {
+  view: function view (ref) {
     var attrs = ref.attrs;
 
     return [
@@ -1461,7 +1461,7 @@ function Browser () {
   var url = stream('');
   var currentPage = stream('https://duckduckgo.com');
 
-  var back = function() {
+  var back = function () {
     currentPage(historyStack.pop());
     redraw();
   };
@@ -1529,7 +1529,7 @@ var address = 'ws://vhost3.lnu.se:20080/socket/';
 // NOTE: this opens the websocket immediately on application launch
 // (could instead do this in each instance of the chat application)
 var connection = {
-  socket: new WebSocket(address),
+  socket: new window.WebSocket(address),
   messages: [],
   isLoggedIn: false,
   username: stream('')
@@ -1566,7 +1566,6 @@ function message (text) {
   }
 }
 
-
 var isInitialized = false;
 
 function ChatApplication () {
@@ -1575,7 +1574,7 @@ function ChatApplication () {
 
   if (!isInitialized) {
     isInitialized = true;
-  
+
     // NOTE: will currently continue listening after chat is closed
     connection.socket.addEventListener('message', function (e) {
       var response = JSON.parse(e.data);
@@ -1604,7 +1603,7 @@ function ChatApplication () {
       return [
         mithril('', {
           style: styles$1.messages,
-          oncreate: function oncreate(ref) {
+          oncreate: function oncreate (ref) {
             var dom = ref.dom;
 
             messageElement = dom;
@@ -1638,16 +1637,11 @@ function ChatApplication () {
 function Chat () {
   return {
     view: function view () {
-      return connection.isLoggedIn ?
-        mithril(ChatApplication) :
-        mithril(ChatLogin)
+      return connection.isLoggedIn
+        ? mithril(ChatApplication)
+        : mithril(ChatLogin)
     }
   }
-}
-
-function removeFromArray (arr, item) {
-  var index = arr.indexOf(item);
-  if (index > -1) { arr.splice(index, 1); }
 }
 
 function shuffle (arr) {
@@ -1686,7 +1680,7 @@ function modelFactory (rows) {
   return {
     board: shuffle(initialBoard.slice(0, rows * 4)),
     solved: [],
-    revealed: [], // tuple
+    revealed: [] // tuple
   }
 }
 
@@ -1717,15 +1711,14 @@ function Memory () {
     else if (revealed.length === 1 && match(piece, revealed[0])) {
       solved.push(piece, revealed[0]);
       revealed.length = 0;
-    }
-    else if (revealed.length === 1) {
+    } else if (revealed.length === 1) {
       revealed.push(piece);
       setTimeout(function () {
         revealed.length = 0;
         redraw();
       }, 500);
     }
-    
+
     // user wins when board length is solved length
     if (board.length === solved.length) {
       round++;
@@ -1737,7 +1730,7 @@ function Memory () {
         redraw();
       }, 200);
     }
-    
+
     redraw();
   };
 
@@ -1750,7 +1743,7 @@ function Memory () {
         mithril('div', { style: boardStyle() },
           board.map(function (piece) {
             var symbol = (solved.includes(piece) || revealed.includes(piece)) ? piece.toLowerCase() : '*';
-            return mithril('button', { onclick: function onclick() { makeMove(piece); }, style: pieceStyle }, symbol)
+            return mithril('button', { onclick: function onclick () { makeMove(piece); }, style: pieceStyle }, symbol)
           })
         )
       )
@@ -1764,96 +1757,9 @@ var apps = [
   { name: 'Memory', icon: 'eye', component: Memory }
 ];
 
-var isTopWindow = function (app, zIndexOrder) { return zIndexOrder[zIndexOrder.length -1] === app; };
-
-var MIN_Z_INDEX = 10;
-function getAppWindowStyle (ref) {
-  var app = ref.app;
-  var windowState$$1 = ref.windowState;
-
-  return {
-    transform: ("translate(" + (app.x) + "px, " + (app.y) + "px)"),
-    zIndex: String(MIN_Z_INDEX + windowState$$1.zIndexOrder.indexOf(app))
-  }
-}
-
-function AppWindow (ref) {
-  var attrs = ref.attrs;
-
-  var app = attrs.app;
-  var windowState$$1 = attrs.windowState;
-  
-  var el = null;
-  var canDragWindow = false;
-  var x = 0;
-  var y = 0;
-
-  var moveWindow = function(e) {
-    if (!canDragWindow) { return }
-    
-    // update within app just in case of redraw, but this only keeps the data in sync (does not actually reposition until a redraw)
-    app.x = e.clientX - x;
-    app.y = e.clientY - y;
-
-    // actually perform move:
-    el.style.transform = "translate(" + (app.x) + "px, " + (app.y) + "px)";
-  };
-
-  var endMoveWindow = function() {
-    // handles snap on edge overflow:
-    var rightEdge = window.innerWidth - 200;
-    var bottomEdge = window.innerHeight - 40;
-    if (app.x < 0) { app.x = 0; }
-    if (app.y < 0) { app.y = 0; }
-    if (app.x > rightEdge) { app.x = rightEdge; }
-    if (app.y > bottomEdge) { app.y = bottomEdge; }
-    el.style.transform = "translate(" + (app.x) + "px, " + (app.y) + "px)";
-    canDragWindow = false;
-  };
-
-  var beginMoveWindow = function(e) {
-    var rect = el.getBoundingClientRect();
-    canDragWindow = true;
-    x = e.clientX - rect.left;
-    y = e.clientY - rect.top;
-    document.onmousemove = moveWindow;
-    document.onmouseup = endMoveWindow;
-  };
-
-
-  return {
-    view: function view () {
-      return (
-        mithril('.app-window', {
-          oncreate: function oncreate (ref) {
-          var dom = ref.dom;
- el = dom; },
-          className: isTopWindow(app, windowState$$1.zIndexOrder) ? 'active' : '',
-          style: getAppWindowStyle(attrs),
-          onmousedown: function onmousedown () {
-            removeFromArray(windowState$$1.zIndexOrder, app);
-            windowState$$1.zIndexOrder.push(app);
-            redraw();
-          }
-        },
-          mithril('.app-header', { onmousedown: beginMoveWindow },
-            mithril(Icon, { className: 'icon-small', name: app.icon }),
-            mithril('span.app-title', app.name),
-            mithril('span.app-close', { onclick: closeActiveWindow }, '×')
-          ),
-          mithril('.app-body',
-            mithril(app.component)
-          )
-        )
-      )
-    }
-  }
-}
-
-// import stream from 'mithril/stream'
 var WINDOW_V_SPACING = 30;
 var WINDOW_H_SPACING = 20;
-var V_OFFSET = 120;
+var V_OFFSET = 240;
 var H_OFFSET = 80;
 var MAX_HEIGHT = function () { return window.innerHeight - V_OFFSET; };
 var MAX_WIDTH = function () { return window.innerWidth - H_OFFSET; };
@@ -1934,7 +1840,7 @@ function makeAppInstance (ref) {
 function Dock () {
   // const model = dockModel()
   return {
-    view: function view() {
+    view: function view () {
       return [
         mithril('ul.dock',
           apps.map(function (app) { return (
@@ -1945,6 +1851,96 @@ function Dock () {
           ); })
          )
       ]
+    }
+  }
+}
+
+function removeFromArray (arr, item) {
+  var index = arr.indexOf(item);
+  if (index > -1) { arr.splice(index, 1); }
+}
+
+var isTopWindow = function (app, zIndexOrder) { return zIndexOrder[zIndexOrder.length - 1] === app; };
+
+var MIN_Z_INDEX = 10;
+function getAppWindowStyle (ref) {
+  var app = ref.app;
+  var windowState$$1 = ref.windowState;
+
+  return {
+    transform: ("translate(" + (app.x) + "px, " + (app.y) + "px)"),
+    zIndex: String(MIN_Z_INDEX + windowState$$1.zIndexOrder.indexOf(app))
+  }
+}
+
+function AppWindow (ref) {
+  var attrs = ref.attrs;
+
+  var app = attrs.app;
+  var windowState$$1 = attrs.windowState;
+
+  var el = null;
+  var canDragWindow = false;
+  var x = 0;
+  var y = 0;
+
+  var moveWindow = function (e) {
+    if (!canDragWindow) { return }
+
+    // update within app just in case of redraw, but this only keeps the data in sync (does not actually reposition until a redraw)
+    app.x = e.clientX - x;
+    app.y = e.clientY - y;
+
+    // actually perform move:
+    el.style.transform = "translate(" + (app.x) + "px, " + (app.y) + "px)";
+  };
+
+  var endMoveWindow = function () {
+    // handles snap on edge overflow:
+    var rightEdge = window.innerWidth - 200;
+    var bottomEdge = window.innerHeight - 40;
+    if (app.x < 0) { app.x = 0; }
+    if (app.y < 0) { app.y = 0; }
+    if (app.x > rightEdge) { app.x = rightEdge; }
+    if (app.y > bottomEdge) { app.y = bottomEdge; }
+    el.style.transform = "translate(" + (app.x) + "px, " + (app.y) + "px)";
+    canDragWindow = false;
+  };
+
+  var beginMoveWindow = function (e) {
+    var rect = el.getBoundingClientRect();
+    canDragWindow = true;
+    x = e.clientX - rect.left;
+    y = e.clientY - rect.top;
+    document.onmousemove = moveWindow;
+    document.onmouseup = endMoveWindow;
+  };
+
+  return {
+    view: function view () {
+      return (
+        mithril('.app-window', {
+          oncreate: function oncreate (ref) {
+          var dom = ref.dom;
+ el = dom; },
+          className: isTopWindow(app, windowState$$1.zIndexOrder) ? 'active' : '',
+          style: getAppWindowStyle(attrs),
+          onmousedown: function onmousedown () {
+            removeFromArray(windowState$$1.zIndexOrder, app);
+            windowState$$1.zIndexOrder.push(app);
+            redraw();
+          }
+        },
+          mithril('.app-header', { onmousedown: beginMoveWindow },
+            mithril(Icon, { className: 'icon-small', name: app.icon }),
+            mithril('span.app-title', app.name),
+            mithril('span.app-close', { onclick: closeActiveWindow }, '×')
+          ),
+          mithril('.app-body',
+            mithril(app.component)
+          )
+        )
+      )
     }
   }
 }

@@ -4,7 +4,7 @@ import { closeActiveWindow } from '../window-manager'
 import { removeFromArray } from '../util'
 import { redraw } from '../index'
 
-const isTopWindow = (app, zIndexOrder) => zIndexOrder[zIndexOrder.length -1] === app
+const isTopWindow = (app, zIndexOrder) => zIndexOrder[zIndexOrder.length - 1] === app
 
 const MIN_Z_INDEX = 10
 function getAppWindowStyle ({ app, windowState }) {
@@ -16,15 +16,15 @@ function getAppWindowStyle ({ app, windowState }) {
 
 function AppWindow ({ attrs }) {
   const { app, windowState } = attrs
-  
+
   let el = null
   let canDragWindow = false
   let x = 0
   let y = 0
 
-  const moveWindow = function(e) {
+  const moveWindow = function (e) {
     if (!canDragWindow) return
-    
+
     // update within app just in case of redraw, but this only keeps the data in sync (does not actually reposition until a redraw)
     app.x = e.clientX - x
     app.y = e.clientY - y
@@ -33,7 +33,7 @@ function AppWindow ({ attrs }) {
     el.style.transform = `translate(${app.x}px, ${app.y}px)`
   }
 
-  const endMoveWindow = function() {
+  const endMoveWindow = function () {
     // handles snap on edge overflow:
     const rightEdge = window.innerWidth - 200
     const bottomEdge = window.innerHeight - 40
@@ -45,7 +45,7 @@ function AppWindow ({ attrs }) {
     canDragWindow = false
   }
 
-  const beginMoveWindow = function(e) {
+  const beginMoveWindow = function (e) {
     const rect = el.getBoundingClientRect()
     canDragWindow = true
     x = e.clientX - rect.left
@@ -53,7 +53,6 @@ function AppWindow ({ attrs }) {
     document.onmousemove = moveWindow
     document.onmouseup = endMoveWindow
   }
-
 
   return {
     view () {

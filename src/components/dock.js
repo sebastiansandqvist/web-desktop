@@ -3,7 +3,6 @@ import Icon from './icon'
 import apps from '../apps/app-manifest'
 import { spawnWindow, windowState } from '../window-manager'
 
-
 let instanceCounter = 0
 function makeAppInstance ({ name, icon, component }) {
   return {
@@ -19,7 +18,7 @@ function makeAppInstance ({ name, icon, component }) {
 function Dock () {
   // const model = dockModel()
   return {
-    view() {
+    view () {
       return [
         m('ul.dock',
           apps.map((app) => (
