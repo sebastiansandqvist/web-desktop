@@ -1530,6 +1530,7 @@ var address = 'ws://vhost3.lnu.se:20080/socket/';
 // (could instead do this in each instance of the chat application)
 var connection = {
   socket: new WebSocket(address),
+  messages: [],
   isLoggedIn: false,
   username: stream('')
 };
@@ -1565,10 +1566,25 @@ function message (text) {
   }
 }
 
+
+var isInitialized = false;
+
 function ChatApplication () {
-  var messages = [];
   var currentMessage = stream('');
   var messageElement = null;
+
+  if (!isInitialized) {
+    isInitialized = true;
+  
+    // NOTE: will currently continue listening after chat is closed
+    connection.socket.addEventListener('message', function (e) {
+      var response = JSON.parse(e.data);
+      if (response.type === 'message') {
+        connection.messages.push({ username: response.username, message: response.data });
+        redraw();
+      }
+    });
+  }
 
   var sendMessage = function (e) {
     e.preventDefault();
@@ -1577,16 +1593,13 @@ function ChatApplication () {
     redraw();
   };
 
-  connection.socket.onmessage = function (e) {
-    var response = JSON.parse(e.data);
-    if (response.type === 'message') {
-      messages.push({ username: response.username, message: response.data });
-      redraw();
-      messageElement.scrollTop = messageElement.scrollHeight;
-    }
-  };
+  var onMessage = function () { messageElement.scrollTop = messageElement.scrollHeight; };
+  connection.socket.addEventListener('message', onMessage);
 
   return {
+    onremove: function onremove () {
+      connection.socket.removeEventListener('message', onMessage);
+    },
     view: function view () {
       return [
         mithril('', {
@@ -1597,7 +1610,7 @@ function ChatApplication () {
             messageElement = dom;
           }
         },
-          messages.map(function (ref) {
+          connection.messages.map(function (ref) {
             var username = ref.username;
             var message = ref.message;
 
