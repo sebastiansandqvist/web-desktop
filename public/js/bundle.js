@@ -1278,12 +1278,6 @@ var Icon = {
   }
 };
 
-var Browser = {
-  view: function view () {
-    return mithril('div', 'browser test')
-  }
-};
-
 var stream$2 = createCommonjsModule(function (module) {
 /* eslint-disable */
 (function() {
@@ -1452,6 +1446,54 @@ var stream = stream$2;
 
 var styles = {
   input: {
+    width: '70%'
+  },
+  frame: {
+    border: '0',
+    display: 'block',
+    height: '300px',
+    width: '100%'
+  }
+};
+
+function Browser () {
+  var historyStack = [];
+  var url = stream('');
+  var currentPage = stream('https://duckduckgo.com');
+
+  var back = function() {
+    currentPage(historyStack.pop());
+    redraw();
+  };
+
+  var navigate = function (e) {
+    e.preventDefault();
+    historyStack.push(url());
+    currentPage(url());
+    redraw();
+  };
+
+  return {
+    view: function view () {
+      return [
+        mithril('form', { onsubmit: navigate },
+          mithril('button', { onclick: back }, '←'),
+          mithril('input[type=url]', {
+            oninput: function oninput (e) { url(e.target.value); },
+            placeholder: currentPage(),
+            style: styles.input,
+            value: url()
+          }),
+          mithril('button[type=submit]', 'Go')
+        ),
+        mithril('iframe', { src: currentPage(), style: styles.frame })
+      ]
+    }
+  }
+}
+
+var styles$1 = {
+  input: {
     boxSizing: 'border-box',
     margin: '5px',
     padding: '5px',
@@ -1504,10 +1546,10 @@ var ChatLogin = {
       mithril('form', { onsubmit: login },
         mithril('input[type=text]', {
           oninput: function oninput (e) { connection.username(e.target.value); },
-          style: styles.input,
+          style: styles$1.input,
           value: connection.username()
         }),
-        mithril('button[type=submit]', { style: styles.button }, 'Sign in')
+        mithril('button[type=submit]', { style: styles$1.button }, 'Sign in')
       )
     )
   }
@@ -1548,7 +1590,7 @@ function ChatApplication () {
     view: function view () {
       return [
         mithril('', {
-          style: styles.messages,
+          style: styles$1.messages,
           oncreate: function oncreate(ref) {
             var dom = ref.dom;
 
@@ -1560,8 +1602,8 @@ function ChatApplication () {
             var message = ref.message;
 
             return (
-            mithril('', { style: styles.message(username === connection.username()) },
-              mithril('', { style: styles.username }, username),
+            mithril('', { style: styles$1.message(username === connection.username()) },
+              mithril('', { style: styles$1.username }, username),
               mithril('', message)
             )
           );
@@ -1570,10 +1612,10 @@ function ChatApplication () {
         mithril('form', { onsubmit: sendMessage },
           mithril('input[type=text]', {
             oninput: function oninput (e) { currentMessage(e.target.value); },
-            style: styles.input,
+            style: styles$1.input,
             value: currentMessage()
           }),
-          mithril('button[type=submit]', { style: styles.button }, 'Send')
+          mithril('button[type=submit]', { style: styles$1.button }, 'Send')
         )
       ]
     }
