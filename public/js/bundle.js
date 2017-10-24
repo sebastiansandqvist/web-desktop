@@ -1278,6 +1278,31 @@ var Icon = {
   }
 };
 
+var Browser = {
+  view: function view () {
+    return mithril('div', 'browser test')
+  }
+};
+
+var Chat = {
+  view: function view () {
+    return mithril('div', 'chat test app')
+  }
+};
+
+var Memory = {
+  view: function view () {
+    return mithril('div', 'memory test app')
+  }
+};
+
+// TODO: should package icon with each app instead of with desktop
+var apps = [
+  { name: 'Browser', icon: 'globe', component: Browser },
+  { name: 'Chat', icon: 'chat', component: Chat },
+  { name: 'Memory', icon: 'eye', component: Memory }
+];
+
 function removeFromArray (arr, item) {
   var index = arr.indexOf(item);
   if (index > -1) { arr.splice(index, 1); }
@@ -1370,14 +1395,6 @@ function AppWindow (ref) {
 }
 
 // import stream from 'mithril/stream'
-// App:
-//  {
-//    name: String,
-//    icon: String or SVG path?,
-//    height: Number,
-//    width: Number
-//  }
-
 var WINDOW_V_SPACING = 30;
 var WINDOW_H_SPACING = 20;
 var V_OFFSET = 120;
@@ -1441,26 +1458,6 @@ window.addEventListener('keyup', function (e) {
   if (e.key === 'Tab' && e.altKey && e.shiftKey) { rotateActiveWindowReverse(); }
   else if (e.key === 'Tab' && e.altKey) { rotateActiveWindow(); }
 });
-
-var Browser = {
-  view: function view () {
-    return mithril('div', 'browser!!!!!')
-  }
-};
-
-var Chat = {
-  view: function view () {
-    return mithril('div', 'chat!!!!!!')
-  }
-};
-
-// TODO: own file (app manifest in root of apps folder)
-var apps = [
-  { name: 'Browser', icon: 'globe', component: Browser },
-  { name: 'Chat', icon: 'chat', component: Chat },
-  { name: 'Memory', icon: 'eye' },
-  { name: 'Tetris', icon: 'TODO' }
-];
 
 var instanceCounter = 0;
 function makeAppInstance (ref) {
