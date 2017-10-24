@@ -1,5 +1,6 @@
 import m from 'mithril'
 import Icon from './icon'
+import { closeActiveWindow } from '../window-manager'
 import { removeFromArray } from '../util'
 import { redraw } from '../index'
 
@@ -11,12 +12,6 @@ function getAppWindowStyle ({ app, windowState }) {
     transform: `translate(${app.x}px, ${app.y}px)`,
     zIndex: String(MIN_Z_INDEX + windowState.zIndexOrder.indexOf(app))
   }
-}
-
-function close ({ app, windowState }) {
-  console.log(app, windowState)
-  windowState.zIndexOrder.pop()
-  redraw()
 }
 
 function AppWindow ({ attrs }) {
@@ -76,7 +71,7 @@ function AppWindow ({ attrs }) {
           m('.app-header', { onmousedown: beginMoveWindow },
             m(Icon, { className: 'icon-small', name: app.icon }),
             m('span.app-title', app.name),
-            m('span.app-close', { onclick() { close(attrs) } }, '×')
+            m('span.app-close', { onclick: closeActiveWindow }, '×')
           ),
           m('.app-body',
             m(app.component)

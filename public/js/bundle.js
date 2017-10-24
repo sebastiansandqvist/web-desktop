@@ -1288,28 +1288,19 @@ var isTopWindow = function (app, zIndexOrder) { return zIndexOrder[zIndexOrder.l
 var MIN_Z_INDEX = 10;
 function getAppWindowStyle (ref) {
   var app = ref.app;
-  var windowState = ref.windowState;
+  var windowState$$1 = ref.windowState;
 
   return {
     transform: ("translate(" + (app.x) + "px, " + (app.y) + "px)"),
-    zIndex: String(MIN_Z_INDEX + windowState.zIndexOrder.indexOf(app))
+    zIndex: String(MIN_Z_INDEX + windowState$$1.zIndexOrder.indexOf(app))
   }
-}
-
-function close (ref) {
-  var app = ref.app;
-  var windowState = ref.windowState;
-
-  console.log(app, windowState);
-  windowState.zIndexOrder.pop();
-  redraw();
 }
 
 function AppWindow (ref) {
   var attrs = ref.attrs;
 
   var app = attrs.app;
-  var windowState = attrs.windowState;
+  var windowState$$1 = attrs.windowState;
   
   var el = null;
   var canDragWindow = false;
@@ -1356,18 +1347,18 @@ function AppWindow (ref) {
           oncreate: function oncreate (ref) {
           var dom = ref.dom;
  el = dom; },
-          className: isTopWindow(app, windowState.zIndexOrder) ? 'active' : '',
+          className: isTopWindow(app, windowState$$1.zIndexOrder) ? 'active' : '',
           style: getAppWindowStyle(attrs),
           onmousedown: function onmousedown () {
-            removeFromArray(windowState.zIndexOrder, app);
-            windowState.zIndexOrder.push(app);
+            removeFromArray(windowState$$1.zIndexOrder, app);
+            windowState$$1.zIndexOrder.push(app);
             redraw();
           }
         },
           mithril('.app-header', { onmousedown: beginMoveWindow },
             mithril(Icon, { className: 'icon-small', name: app.icon }),
             mithril('span.app-title', app.name),
-            mithril('span.app-close', { onclick: function onclick() { close(attrs); } }, '×')
+            mithril('span.app-close', { onclick: closeActiveWindow }, '×')
           ),
           mithril('.app-body',
             mithril(app.component)
@@ -1379,6 +1370,14 @@ function AppWindow (ref) {
 }
 
 // import stream from 'mithril/stream'
+// App:
+//  {
+//    name: String,
+//    icon: String or SVG path?,
+//    height: Number,
+//    width: Number
+//  }
+
 var WINDOW_V_SPACING = 30;
 var WINDOW_H_SPACING = 20;
 var V_OFFSET = 120;
@@ -1394,7 +1393,6 @@ var windowState = {
 };
 
 function spawnWindow (app) {
-  console.log(windowState.nextX, windowState.nextY, MAX_WIDTH(), MAX_HEIGHT());
   if (windowState.nextY >= MAX_HEIGHT()) {
     windowState.wrapCount++;
     windowState.nextX = windowState.wrapCount * WINDOW_H_SPACING * 2; // * 2 is arbitrary multiplier for aesthetics
@@ -1408,9 +1406,41 @@ function spawnWindow (app) {
   windowState.nextX += WINDOW_H_SPACING;
   windowState.nextY += WINDOW_V_SPACING;
   windowState.zIndexOrder.push(app);
-  // console.log(windowState)
   redraw();
 }
+
+/*
+  future idea: spawnWindow/closeActiveWindow could set nextX/nextY based on number of open windows
+  so spawning 3 windows, closing 2 of them, and spawning another would spawn in the correct location
+*/
+
+function closeActiveWindow () {
+  windowState.zIndexOrder.pop();
+  // reset state when all windows are closed so next window is like initial window
+  if (windowState.zIndexOrder.length === 0) {
+    windowState.wrapCount = 0;
+    windowState.nextX = WINDOW_H_SPACING;
+    windowState.nextY = WINDOW_V_SPACING;
+  }
+  redraw();
+}
+
+function rotateActiveWindowReverse () {
+  windowState.zIndexOrder.unshift(windowState.zIndexOrder.pop());
+  redraw();
+}
+
+function rotateActiveWindow () {
+  windowState.zIndexOrder.push(windowState.zIndexOrder.shift());
+  redraw();
+}
+
+// (using alt+tab probably doesn't work on windows)
+window.addEventListener('keyup', function (e) {
+  if (e.key === 'w' && e.altKey) { closeActiveWindow(); }
+  if (e.key === 'Tab' && e.altKey && e.shiftKey) { rotateActiveWindowReverse(); }
+  else if (e.key === 'Tab' && e.altKey) { rotateActiveWindow(); }
+});
 
 var Browser = {
   view: function view () {

@@ -26,7 +26,6 @@ export const windowState = {
 }
 
 export function spawnWindow (app) {
-  console.log(windowState.nextX, windowState.nextY, MAX_WIDTH(), MAX_HEIGHT())
   if (windowState.nextY >= MAX_HEIGHT()) {
     windowState.wrapCount++
     windowState.nextX = windowState.wrapCount * WINDOW_H_SPACING * 2 // * 2 is arbitrary multiplier for aesthetics
@@ -40,6 +39,38 @@ export function spawnWindow (app) {
   windowState.nextX += WINDOW_H_SPACING
   windowState.nextY += WINDOW_V_SPACING
   windowState.zIndexOrder.push(app)
-  // console.log(windowState)
   redraw()
 }
+
+/*
+  future idea: spawnWindow/closeActiveWindow could set nextX/nextY based on number of open windows
+  so spawning 3 windows, closing 2 of them, and spawning another would spawn in the correct location
+*/
+
+export function closeActiveWindow () {
+  windowState.zIndexOrder.pop()
+  // reset state when all windows are closed so next window is like initial window
+  if (windowState.zIndexOrder.length === 0) {
+    windowState.wrapCount = 0
+    windowState.nextX = WINDOW_H_SPACING
+    windowState.nextY = WINDOW_V_SPACING
+  }
+  redraw()
+}
+
+function rotateActiveWindowReverse () {
+  windowState.zIndexOrder.unshift(windowState.zIndexOrder.pop())
+  redraw()
+}
+
+function rotateActiveWindow () {
+  windowState.zIndexOrder.push(windowState.zIndexOrder.shift())
+  redraw()
+}
+
+// (using alt+tab probably doesn't work on windows)
+window.addEventListener('keyup', function (e) {
+  if (e.key === 'w' && e.altKey) closeActiveWindow()
+  if (e.key === 'Tab' && e.altKey && e.shiftKey) rotateActiveWindowReverse()
+  else if (e.key === 'Tab' && e.altKey) rotateActiveWindow()
+})
