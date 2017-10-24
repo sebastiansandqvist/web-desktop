@@ -1,4 +1,4 @@
-(function () {
+var pwd = (function (exports) {
 'use strict';
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -1263,7 +1263,9 @@ var icons = {
   chat: mithril('g', [
     mithril('path', { 'fill-opacity': '0.5', d: 'm5.8 11.2v-6.2h-3.8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h1v3l3-3h5c1.1 0 2-.9 2-2v-1.82c-.064.014-.132.021-.2.021h-7v-.001' }),
     mithril('path', { d: 'm18 0h-9c-1.1 0-2 .9-2 2v8h7l3 3v-3h1c1.1 0 2-.899 2-2v-6c0-1.1-.9-2-2-2' })
-  ])
+  ]),
+  eye: mithril('path', { d: 'm10 4.4c-6.6 0-10 4.8-10 5.6 0 .8 3.4 5.6 10 5.6 6.6 0 10-4.8 10-5.6 0-.8-3.4-5.6-10-5.6m0 9.9c-2.5 0-4.4-1.9-4.4-4.3 0-2.4 2-4.3 4.4-4.3 2.5 0 4.4 1.9 4.4 4.3 0 2.4-2 4.3-4.4 4.3m0-4.3c-.4-.4.7-2.2 0-2.2-1.2 0-2.2 1-2.2 2.2 0 1.2 1 2.2 2.2 2.2 1.2 0 2.2-1 2.2-2.2 0-.5-1.9.4-2.2 0'}),
+  globe: mithril('path', { d: 'M10 0.4c-5.295 0-9.601 4.307-9.601 9.6c0 5.293 4.306 9.6 9.601 9.6c5.293 0 9.6-4.307 9.6-9.6C19.6 4.707 15.293 0.4 10 0.4z M18.188 10c0 1.873-0.636 3.6-1.696 4.98c-0.3-0.234-0.619-0.867-0.319-1.523c0.303-0.66 0.382-2.188 0.312-2.783c-0.066-0.594-0.375-2.025-1.214-2.039c-0.838-0.012-1.413-0.289-1.911-1.283c-1.033-2.068 1.939-2.465 0.906-3.609c-0.289-0.322-1.783 1.322-2.002-0.869C12.25 2.717 12.399 2.482 12.6 2.238C15.844 3.328 18.188 6.395 18.188 10z M8.875 1.893C8.679 2.275 8.162 2.43 7.848 2.717C7.164 3.336 6.87 3.25 6.502 3.844C6.131 4.438 4.935 5.293 4.935 5.723s0.604 0.936 0.906 0.838c0.302-0.1 1.099-0.094 1.567 0.07c0.469 0.166 3.914 0.332 2.816 3.244c-0.348 0.926-1.873 0.77-2.279 2.303c-0.061 0.225-0.272 1.186-0.285 1.5c-0.025 0.486 0.344 2.318-0.125 2.318c-0.471 0-1.738-1.639-1.738-1.936c0-0.297-0.328-1.338-0.328-2.23c0-0.891-1.518-0.877-1.518-2.062c0-1.068 0.823-1.6 0.638-2.113c-0.181-0.51-1.627-0.527-2.23-0.59C3.412 4.334 5.889 2.307 8.875 1.893z M7.424 17.77c0.492-0.26 0.542-0.596 0.988-0.613c0.51-0.023 0.925-0.199 1.5-0.326c0.51-0.111 1.423-0.629 2.226-0.695c0.678-0.055 2.015 0.035 2.375 0.689c-1.295 0.861-2.848 1.363-4.514 1.363C9.1 18.188 8.234 18.039 7.424 17.77z'})
 };
 
 var Icon = {
@@ -1276,211 +1278,212 @@ var Icon = {
   }
 };
 
-var stream$2 = createCommonjsModule(function (module) {
-/* eslint-disable */
-(function() {
-"use strict";
-/* eslint-enable */
-
-var guid = 0, HALT = {};
-function createStream() {
-	function stream() {
-		if (arguments.length > 0 && arguments[0] !== HALT) { updateStream(stream, arguments[0]); }
-		return stream._state.value
-	}
-	initStream(stream);
-
-	if (arguments.length > 0 && arguments[0] !== HALT) { updateStream(stream, arguments[0]); }
-
-	return stream
-}
-function initStream(stream) {
-	stream.constructor = createStream;
-	stream._state = {id: guid++, value: undefined, state: 0, derive: undefined, recover: undefined, deps: {}, parents: [], endStream: undefined, unregister: undefined};
-	stream.map = stream["fantasy-land/map"] = map, stream["fantasy-land/ap"] = ap, stream["fantasy-land/of"] = createStream;
-	stream.valueOf = valueOf, stream.toJSON = toJSON, stream.toString = valueOf;
-
-	Object.defineProperties(stream, {
-		end: {get: function() {
-			if (!stream._state.endStream) {
-				var endStream = createStream();
-				endStream.map(function(value) {
-					if (value === true) {
-						unregisterStream(stream);
-						endStream._state.unregister = function(){unregisterStream(endStream);};
-					}
-					return value
-				});
-				stream._state.endStream = endStream;
-			}
-			return stream._state.endStream
-		}}
-	});
-}
-function updateStream(stream, value) {
-	updateState(stream, value);
-	for (var id in stream._state.deps) { updateDependency(stream._state.deps[id], false); }
-	if (stream._state.unregister != null) { stream._state.unregister(); }
-	finalize(stream);
-}
-function updateState(stream, value) {
-	stream._state.value = value;
-	stream._state.changed = true;
-	if (stream._state.state !== 2) { stream._state.state = 1; }
-}
-function updateDependency(stream, mustSync) {
-	var state = stream._state, parents = state.parents;
-	if (parents.length > 0 && parents.every(active) && (mustSync || parents.some(changed))) {
-		var value = stream._state.derive();
-		if (value === HALT) { return false }
-		updateState(stream, value);
-	}
-}
-function finalize(stream) {
-	stream._state.changed = false;
-	for (var id in stream._state.deps) { stream._state.deps[id]._state.changed = false; }
+function removeFromArray (arr, item) {
+  var index = arr.indexOf(item);
+  if (index > -1) { arr.splice(index, 1); }
 }
 
-function combine(fn, streams) {
-	if (!streams.every(valid)) { throw new Error("Ensure that each item passed to stream.combine/stream.merge is a stream") }
-	return initDependency(createStream(), streams, function() {
-		return fn.apply(this, streams.concat([streams.filter(changed)]))
-	})
+var isTopWindow = function (app, zIndexOrder) { return zIndexOrder[zIndexOrder.length -1] === app; };
+
+var MIN_Z_INDEX = 10;
+function getAppWindowStyle (ref) {
+  var app = ref.app;
+  var windowState = ref.windowState;
+
+  return {
+    transform: ("translate(" + (app.x) + "px, " + (app.y) + "px)"),
+    zIndex: String(MIN_Z_INDEX + windowState.zIndexOrder.indexOf(app))
+  }
 }
 
-function initDependency(dep, streams, derive) {
-	var state = dep._state;
-	state.derive = derive;
-	state.parents = streams.filter(notEnded);
+function close (ref) {
+  var app = ref.app;
+  var windowState = ref.windowState;
 
-	registerDependency(dep, state.parents);
-	updateDependency(dep, true);
-
-	return dep
-}
-function registerDependency(stream, parents) {
-	for (var i = 0; i < parents.length; i++) {
-		parents[i]._state.deps[stream._state.id] = stream;
-		registerDependency(stream, parents[i]._state.parents);
-	}
-}
-function unregisterStream(stream) {
-	for (var i = 0; i < stream._state.parents.length; i++) {
-		var parent = stream._state.parents[i];
-		delete parent._state.deps[stream._state.id];
-	}
-	for (var id in stream._state.deps) {
-		var dependent = stream._state.deps[id];
-		var index = dependent._state.parents.indexOf(stream);
-		if (index > -1) { dependent._state.parents.splice(index, 1); }
-	}
-	stream._state.state = 2; //ended
-	stream._state.deps = {};
+  console.log(app, windowState);
+  windowState.zIndexOrder.pop();
+  redraw();
 }
 
-function map(fn) {return combine(function(stream) {return fn(stream())}, [this])}
-function ap(stream) {return combine(function(s1, s2) {return s1()(s2())}, [stream, this])}
-function valueOf() {return this._state.value}
-function toJSON() {return this._state.value != null && typeof this._state.value.toJSON === "function" ? this._state.value.toJSON() : this._state.value}
+function AppWindow (ref) {
+  var attrs = ref.attrs;
 
-function valid(stream) {return stream._state }
-function active(stream) {return stream._state.state === 1}
-function changed(stream) {return stream._state.changed}
-function notEnded(stream) {return stream._state.state !== 2}
+  var app = attrs.app;
+  var windowState = attrs.windowState;
+  
+  var el = null;
+  var canDragWindow = false;
+  var x = 0;
+  var y = 0;
 
-function merge(streams) {
-	return combine(function() {
-		return streams.map(function(s) {return s()})
-	}, streams)
+  var moveWindow = function(e) {
+    if (!canDragWindow) { return }
+    
+    // update within app just in case of redraw, but this only keeps the data in sync (does not actually reposition until a redraw)
+    app.x = e.clientX - x;
+    app.y = e.clientY - y;
+
+    // actually perform move:
+    el.style.transform = "translate(" + (app.x) + "px, " + (app.y) + "px)";
+  };
+
+  var endMoveWindow = function() {
+    // handles snap on edge overflow:
+    var rightEdge = window.innerWidth - 200;
+    var bottomEdge = window.innerHeight - 40;
+    if (app.x < 0) { app.x = 0; }
+    if (app.y < 0) { app.y = 0; }
+    if (app.x > rightEdge) { app.x = rightEdge; }
+    if (app.y > bottomEdge) { app.y = bottomEdge; }
+    el.style.transform = "translate(" + (app.x) + "px, " + (app.y) + "px)";
+    canDragWindow = false;
+  };
+
+  var beginMoveWindow = function(e) {
+    var rect = el.getBoundingClientRect();
+    canDragWindow = true;
+    x = e.clientX - rect.left;
+    y = e.clientY - rect.top;
+    document.onmousemove = moveWindow;
+    document.onmouseup = endMoveWindow;
+  };
+
+
+  return {
+    view: function view () {
+      return (
+        mithril('.app-window', {
+          oncreate: function oncreate (ref) {
+          var dom = ref.dom;
+ el = dom; },
+          className: isTopWindow(app, windowState.zIndexOrder) ? 'active' : '',
+          style: getAppWindowStyle(attrs),
+          onmousedown: function onmousedown () {
+            removeFromArray(windowState.zIndexOrder, app);
+            windowState.zIndexOrder.push(app);
+            redraw();
+          }
+        },
+          mithril('.app-header', { onmousedown: beginMoveWindow },
+            mithril(Icon, { className: 'icon-small', name: app.icon }),
+            mithril('span.app-title', app.name),
+            mithril('span.app-close', { onclick: function onclick() { close(attrs); } }, '×')
+          ),
+          mithril('.app-body',
+            mithril(app.component)
+          )
+        )
+      )
+    }
+  }
 }
 
-function scan(reducer, seed, stream) {
-	var newStream = combine(function (s) {
-		return seed = reducer(seed, s._state.value)
-	}, [stream]);
+// import stream from 'mithril/stream'
+var WINDOW_V_SPACING = 30;
+var WINDOW_H_SPACING = 20;
+var V_OFFSET = 120;
+var H_OFFSET = 80;
+var MAX_HEIGHT = function () { return window.innerHeight - V_OFFSET; };
+var MAX_WIDTH = function () { return window.innerWidth - H_OFFSET; };
 
-	if (newStream._state.state === 0) { newStream(seed); }
+var windowState = {
+  wrapCount: 0,
+  nextX: WINDOW_H_SPACING,
+  nextY: WINDOW_V_SPACING,
+  zIndexOrder: [] // array of window references (mousedown on any window does a `push`)
+};
 
-	return newStream
+function spawnWindow (app) {
+  console.log(windowState.nextX, windowState.nextY, MAX_WIDTH(), MAX_HEIGHT());
+  if (windowState.nextY >= MAX_HEIGHT()) {
+    windowState.wrapCount++;
+    windowState.nextX = windowState.wrapCount * WINDOW_H_SPACING * 2; // * 2 is arbitrary multiplier for aesthetics
+    windowState.nextY = 0;
+  }
+  if (windowState.nextX >= MAX_WIDTH()) {
+    windowState.wrapCount = 0;
+    windowState.nextX = 0;
+    windowState.nextY = 0;
+  }
+  windowState.nextX += WINDOW_H_SPACING;
+  windowState.nextY += WINDOW_V_SPACING;
+  windowState.zIndexOrder.push(app);
+  // console.log(windowState)
+  redraw();
 }
 
-function scanMerge(tuples, seed) {
-	var streams = tuples.map(function(tuple) {
-		var stream = tuple[0];
-		if (stream._state.state === 0) { stream(undefined); }
-		return stream
-	});
+var Browser = {
+  view: function view () {
+    return mithril('div', 'browser!!!!!')
+  }
+};
 
-	var newStream = combine(function() {
-		var changed = arguments[arguments.length - 1];
+var Chat = {
+  view: function view () {
+    return mithril('div', 'chat!!!!!!')
+  }
+};
 
-		streams.forEach(function(stream, idx) {
-			if (changed.indexOf(stream) > -1) {
-				seed = tuples[idx][1](seed, stream._state.value);
-			}
-		});
-
-		return seed
-	}, streams);
-
-	return newStream
-}
-
-createStream["fantasy-land/of"] = createStream;
-createStream.merge = merge;
-createStream.combine = combine;
-createStream.scan = scan;
-createStream.scanMerge = scanMerge;
-createStream.HALT = HALT;
-
-{ module["exports"] = createStream; }
-
-}());
-});
-
-"use strict";
-
-// TODO: store this in another file
+// TODO: own file (app manifest in root of apps folder)
 var apps = [
-  { appName: 'Browser', appIcon: 'TODO' },
-  { appName: 'Chat', appIcon: 'chat' },
-  { appName: 'Memory', appIcon: 'TODO' },
-  { appName: 'Tetris', appIcon: 'TODO' }
+  { name: 'Browser', icon: 'globe', component: Browser },
+  { name: 'Chat', icon: 'chat', component: Chat },
+  { name: 'Memory', icon: 'eye' },
+  { name: 'Tetris', icon: 'TODO' }
 ];
 
-function Dock() {
+var instanceCounter = 0;
+function makeAppInstance (ref) {
+  var name = ref.name;
+  var icon = ref.icon;
+  var component = ref.component;
+
+  return {
+    name: name,
+    icon: icon,
+    component: component,
+    x: windowState.nextX,
+    y: windowState.nextY,
+    windowNumber: instanceCounter++
+  }
+}
+
+function Dock () {
   // const model = dockModel()
   return {
     view: function view() {
       return [
         mithril('ul.dock',
-          apps.map(function (ref) {
-            var appName = ref.appName;
-            var appIcon = ref.appIcon;
-
-            return (
-            mithril('li.dock-app', { onclick: function onclick() { alert('would spawn window'); } },
-              mithril(Icon, { className: 'icon-large', name: appIcon }),
-              mithril('.dock-app-title', appName)
+          apps.map(function (app) { return (
+            mithril('li.dock-app', { onclick: function () { return spawnWindow(makeAppInstance(app)); } },
+              mithril(Icon, { className: 'icon-large', name: app.icon }),
+              mithril('.dock-app-title', app.name)
             )
-          );
-      })
+          ); })
          )
       ]
     }
   }
 }
 
-var app = {
-  view: function view() {
+var App = {
+  view: function view () {
     return [
-      mithril('', 'test'),
-      mithril(Dock)
+      mithril(Dock),
+      mithril('.app-windows', windowState.zIndexOrder.map(function (app) { return (
+        mithril(AppWindow, { app: app, windowState: windowState, key: app.windowNumber })
+      ); }))
     ]
   }
 };
 
 var mountNode = document.getElementById('app');
-mithril.render(mountNode, mithril(app));
+var redraw = function () { return mithril.render(mountNode, mithril(App)); };
 
-}());
+redraw();
+
+exports.redraw = redraw;
+
+return exports;
+
+}({}));
