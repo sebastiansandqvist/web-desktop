@@ -26,14 +26,18 @@ function modelFactory (rows) {
   }
 }
 
-const pieceStyle = {
-  boxSizing: 'border-box',
-  cursor: 'pointer',
-  display: 'inline-block',
-  margin: '2px',
-  padding: '20px 10px',
-  textAlign: 'center',
-  width: 'calc(25% - 4px)'
+function pieceStyle (isSolved) {
+  const style = {
+    boxSizing: 'border-box',
+    cursor: 'pointer',
+    display: 'inline-block',
+    margin: '2px',
+    padding: '20px 10px',
+    textAlign: 'center',
+    width: 'calc(25% - 4px)'
+  }
+  if (isSolved) style.visibility = 'hidden'
+  return style
 }
 
 const match = (a, b) => a.toLowerCase() === b.toLowerCase()
@@ -81,7 +85,7 @@ function Memory () {
         m('div', { style: boardStyle() },
           board.map((piece) => {
             const symbol = (solved.includes(piece) || revealed.includes(piece)) ? piece.toLowerCase() : '*'
-            return m('button', { onclick () { makeMove(piece) }, style: pieceStyle }, symbol)
+            return m('button', { onclick () { makeMove(piece) }, style: pieceStyle(solved.includes(piece)) }, symbol)
           })
         )
       )

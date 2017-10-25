@@ -1318,15 +1318,19 @@ function modelFactory (rows) {
   }
 }
 
-var pieceStyle = {
-  boxSizing: 'border-box',
-  cursor: 'pointer',
-  display: 'inline-block',
-  margin: '2px',
-  padding: '20px 10px',
-  textAlign: 'center',
-  width: 'calc(25% - 4px)'
-};
+function pieceStyle (isSolved) {
+  var style = {
+    boxSizing: 'border-box',
+    cursor: 'pointer',
+    display: 'inline-block',
+    margin: '2px',
+    padding: '20px 10px',
+    textAlign: 'center',
+    width: 'calc(25% - 4px)'
+  };
+  if (isSolved) { style.visibility = 'hidden'; }
+  return style
+}
 
 var match = function (a, b) { return a.toLowerCase() === b.toLowerCase(); };
 
@@ -1377,7 +1381,7 @@ function Memory () {
         mithril('div', { style: boardStyle() },
           board.map(function (piece) {
             var symbol = (solved.includes(piece) || revealed.includes(piece)) ? piece.toLowerCase() : '*';
-            return mithril('button', { onclick: function onclick () { makeMove(piece); }, style: pieceStyle }, symbol)
+            return mithril('button', { onclick: function onclick () { makeMove(piece); }, style: pieceStyle(solved.includes(piece)) }, symbol)
           })
         )
       )
