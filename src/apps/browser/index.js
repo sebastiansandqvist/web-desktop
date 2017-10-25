@@ -17,7 +17,7 @@ const styles = {
 function Browser () {
   const historyStack = []
   const url = stream('')
-  const currentPage = stream('https://duckduckgo.com')
+  // const currentPage = stream('https://duckduckgo.com')
 
   const back = function () {
     currentPage(historyStack.pop())
@@ -27,7 +27,7 @@ function Browser () {
   const navigate = function (e) {
     e.preventDefault()
     historyStack.push(url())
-    currentPage(url())
+    // currentPage(url())
     redraw()
   }
 
@@ -43,8 +43,7 @@ function Browser () {
             value: url()
           }),
           m('button[type=submit]', 'Go')
-        ),
-        m('iframe', { src: currentPage(), style: styles.frame })
+        )
       ]
     }
   }
