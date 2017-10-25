@@ -7,7 +7,7 @@ export default {
   name: 'pwd',
   input: 'src/index.js',
   output: {
-    file: 'public/js/bundle.js',
+    file: 'docs/js/bundle.js',
     format: 'iife'
   },
   plugins: [

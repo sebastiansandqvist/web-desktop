@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "rollup -c build/rollup.config.js --watch",
-    "serve": "browser-sync start --server --serveStatic \"public\" --files \"public/**\" --no-open",
+    "serve": "browser-sync start --server --serveStatic \"docs\" --files \"docs/**\" --no-open",
     "start": "npm-run-all --parallel dev serve"
   },
   "repository": {
