@@ -1,5 +1,3 @@
-import Browser from './browser'
-import Chat from './chat'
 import Memory from './memory'
 
 // TODO: should package icon with each app instead of with desktop
