@@ -53,7 +53,7 @@ function Memory () {
     if (solved.includes(piece)) return
     if (revealed.length === 0) revealed.push(piece)
     else if (revealed.length === 1 && match(piece, revealed[0])) {
-      solved.push(piece, revealed[0])
+      if (piece !== revealed[0]) solved.push(piece, revealed[0]) // only push if match, not identical piece twice
       revealed.length = 0
     } else if (revealed.length === 1) {
       revealed.push(piece)
